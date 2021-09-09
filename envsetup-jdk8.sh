@@ -29,7 +29,7 @@ elif [[ ${LSB_RELEASE} =~ "Ubuntu 20" ]]; then
 fi
 
     apt install \
-    adb autoconf automake axel bc bison build-essential \
+    adb aria2 autoconf automake axel bc bison build-essential \
     ccache clang cmake expat fastboot flex g++ \
     g++-multilib gawk gcc gcc-multilib git gnupg gperf \
     htop imagemagick lib32ncurses5-dev lib32z1-dev libtinfo5 libc6-dev libcap-dev \
@@ -39,6 +39,7 @@ fi
     pngquant python2.7 python-all-dev re2c schedtool squashfs-tools subversion \
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
     libxml-simple-perl apt-utils \
+    screen tmate pigz axel \
     "${PACKAGES}" -y
 
 echo "Installing openjdk8 and setting it default"
