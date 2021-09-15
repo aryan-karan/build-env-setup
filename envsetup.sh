@@ -38,9 +38,11 @@ fi
     maven ncftp ncurses-dev patch patchelf pkg-config pngcrush \
     pngquant python2.7 python-all-dev re2c schedtool squashfs-tools subversion \
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
-    libxml-simple-perl apt-utils \
+    libxml-simple-perl tzdata apt-utils \
     screen tmate pigz axel \
     "${PACKAGES}" -y
+
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 
 echo -e "Installing openjdk8 and setting it default\n\n"
 apt install openjdk-8-jdk -y && update-java-alternatives -s java-1.8.0-openjdk-amd64
