@@ -42,14 +42,14 @@ fi
     screen tmate pigz axel \
     "${PACKAGES}" -y
 
-echo "Installing openjdk8 and setting it default"
+echo -e "Installing openjdk8 and setting it default\n\n"
 apt install openjdk-8-jdk -y && update-java-alternatives -s java-1.8.0-openjdk-amd64
-echo "Java setup succesfully"
+echo -e "Java setup succesfully\n\n"
 
 # For all those distro hoppers, lets setup your git credentials
 GIT_USERNAME="$(git config --get user.name)"
 GIT_EMAIL="$(git config --get user.email)"
-echo "Configuring git"
+echo -e "\n\nConfiguring git\n\n"
 #if [[ -z ${GIT_USERNAME} ]]; then
 #    echo -n "Enter your name: "
 #    read -r NAME
@@ -57,11 +57,11 @@ echo "Configuring git"
 #if [[ -z ${GIT_EMAIL} ]]; then
 #    echo -n "Enter your email: "
 #    read -r EMAIL
-git config --global user.name "Aryan Karan"
-git config --global user.email "aryankaran28022004@gmail.com"
 #fi
 #git config --global credential.helper "cache --timeout=7200"
-echo "git identity setup successfully!"
+git config --global user.name "Aryan Karan"
+git config --global user.email "aryankaran28022004@gmail.com"
+echo -e "git identity setup successfully!\n\n"
 
 # From Ubuntu 18.10 onwards and Debian Buster libncurses5 package is not available, so we need to hack our way by symlinking required library
 # shellcheck disable=SC2076
