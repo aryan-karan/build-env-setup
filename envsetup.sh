@@ -39,7 +39,7 @@ fi
     pngquant python2.7 python-all-dev re2c schedtool squashfs-tools subversion \
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
     libxml-simple-perl tzdata apt-utils \
-    screen tmate pigz axel \
+    screen tmate pigz axel nano \
     "${PACKAGES}" -y
 
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
