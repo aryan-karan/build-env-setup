@@ -11,10 +11,10 @@ UBUNTU_18_PACKAGES="curl"
 UBUNTU_20_PACKAGES="python"
 PACKAGES=""
 
-apt update
+apt update -qq
 
 # Install lsb-core packages
-apt install lsb-core -y
+apt install lsb-core -y -qq
 
 LSB_RELEASE="$(lsb_release -d | cut -d ':' -f 2 | sed -e 's/^[[:space:]]*//')"
 
@@ -28,7 +28,7 @@ elif [[ ${LSB_RELEASE} =~ "Ubuntu 20" ]]; then
     PACKAGES="${UBUNTU_20_PACKAGES}"
 fi
 
-    apt install \
+    apt install -qq\
     adb aria2 autoconf automake axel bc bison build-essential \
     ccache clang cmake expat fastboot flex g++ \
     g++-multilib gawk gcc gcc-multilib git gnupg gperf \
@@ -45,7 +45,7 @@ fi
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 
 echo -e "Installing openjdk8 and setting it default\n\n"
-apt install openjdk-8-jdk -y && update-java-alternatives -s java-1.8.0-openjdk-amd64
+apt install openjdk-8-jdk -y -qq && update-java-alternatives -s java-1.8.0-openjdk-amd64
 echo -e "Java setup succesfully\n\n"
 
 # For all those distro hoppers, lets setup your git credentials
