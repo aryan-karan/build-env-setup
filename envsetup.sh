@@ -51,7 +51,7 @@ echo -e "Java setup succesfully\n\n"
 # For all those distro hoppers, lets setup your git credentials
 GIT_USERNAME="$(git config --get user.name)"
 GIT_EMAIL="$(git config --get user.email)"
-echo -e "\n\nConfiguring git\n\n"
+echo -e "\nConfiguring git\n"
 #if [[ -z ${GIT_USERNAME} ]]; then
 #    echo -n "Enter your name: "
 #    read -r NAME
@@ -63,7 +63,7 @@ echo -e "\n\nConfiguring git\n\n"
 #git config --global credential.helper "cache --timeout=7200"
 git config --global user.name "Aryan Karan"
 git config --global user.email "aryankaran28022004@gmail.com"
-echo -e "git identity setup successfully!\n\n"
+echo -e "git identity setup successfully!\n"
 
 # From Ubuntu 18.10 onwards and Debian Buster libncurses5 package is not available, so we need to hack our way by symlinking required library
 # shellcheck disable=SC2076
