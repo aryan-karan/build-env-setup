@@ -11,6 +11,8 @@ UBUNTU_18_PACKAGES="curl"
 UBUNTU_20_PACKAGES="python"
 PACKAGES=""
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt update -qq
 
 # Install lsb-core packages
