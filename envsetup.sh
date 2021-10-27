@@ -40,6 +40,7 @@ fi
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
     libxml-simple-perl tzdata apt-utils \
     screen tmate pigz axel nano \
+    curl sed coreutils tar time ssh\
     "${PACKAGES}" -y
 
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
