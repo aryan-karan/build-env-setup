@@ -86,11 +86,25 @@ if [[ "$(command -v adb)" != "" ]]; then
     killall adb
 fi
 
+function install_latest_make() {
+export a="$PWD"
+cd /tmp || exit 1
+axel -a -n 10 https://ftp.gnu.org/gnu/make/make-"${1}".tar.gz
+tar xf /tmp/make-"${1}".tar.gz
+cd /tmp/make-"${1}" || exit 1
+./configure
+bash ./build.sh
+sudo install ./make /usr/local/bin/make
+cd - || exit 1
+rm -rf /tmp/make-"${1}"{,.tar.gz}
+cd $a
+}
+
 if [[ "$(command -v make)" ]]; then
     makeversion="$(make -v | head -1 | awk '{print $3}')"
     if [[ ${makeversion} != "${LATEST_MAKE_VERSION}" ]]; then
         echo "Installing make ${LATEST_MAKE_VERSION} instead of ${makeversion}"
-        bash "$(dirname "$0")"/make.sh "${LATEST_MAKE_VERSION}"
+        install_latest_make "${LATEST_MAKE_VERSION}"
     fi
 fi
 
