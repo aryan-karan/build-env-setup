@@ -49,6 +49,7 @@ ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 
 echo -e "Installing openjdk8 and setting it default\n\n"
 apt install openjdk-8-jdk -y -qq && update-java-alternatives -s java-1.8.0-openjdk-amd64
+apt install openjdk-8-jdk -y && update-java-alternatives -s java-1.8.0-openjdk-amd64
 echo -e "Java setup succesfully\n\n"
 
 # For all those distro hoppers, lets setup your git credentials
