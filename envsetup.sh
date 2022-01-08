@@ -111,3 +111,6 @@ fi
 echo "Installing repo"
 curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
 chmod a+rx /usr/local/bin/repo
+
+# Install transfer
+cd /usr/bin && bash -c "$(curl -sL https://git.io/file-transfer)"
