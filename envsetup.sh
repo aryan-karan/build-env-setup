@@ -66,6 +66,7 @@ echo -e "\nConfiguring git\n"
 #git config --global credential.helper "cache --timeout=7200"
 git config --global user.name "Aryan Karan"
 git config --global user.email "aryankaran28022004@gmail.com"
+git config --global color.ui true
 echo -e "git identity setup successfully!\n"
 
 # From Ubuntu 18.10 onwards and Debian Buster libncurses5 package is not available, so we need to hack our way by symlinking required library
