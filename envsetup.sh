@@ -47,7 +47,8 @@ fi
 
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 
-echo -e "Installing openjdk8 and setting it default\n\n"
+echo -e "Installing openjdk8 and setting it default + remove any old jdk\n\n"
+apt remove *jdk* -y || true
 apt install openjdk-8-jdk -y -qq && update-java-alternatives -s java-1.8.0-openjdk-amd64
 echo -e "Java setup succesfully\n\n"
 
