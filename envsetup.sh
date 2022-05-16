@@ -117,3 +117,6 @@ if [[ "$(command -v make)" ]]; then
         install_latest_make "${LATEST_MAKE_VERSION}"
     fi
 fi
+
+# change hostname
+echo 'echo aryankaran-245-G7-notebook-PC' | tee `which hostname`
