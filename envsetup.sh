@@ -60,19 +60,7 @@ apt remove *jdk* -y || true
 apt install openjdk-8-jdk -y -qq && update-java-alternatives -s java-1.8.0-openjdk-amd64
 echo -e "Java setup succesfully\n\n"
 
-# For all those distro hoppers, lets setup your git credentials
-GIT_USERNAME="$(git config --get user.name)"
-GIT_EMAIL="$(git config --get user.email)"
-echo -e "\nConfiguring git\n"
-#if [[ -z ${GIT_USERNAME} ]]; then
-#    echo -n "Enter your name: "
-#    read -r NAME
-#fi
-#if [[ -z ${GIT_EMAIL} ]]; then
-#    echo -n "Enter your email: "
-#    read -r EMAIL
-#fi
-#git config --global credential.helper "cache --timeout=7200"
+# git config --global credential.helper "cache --timeout=7200"
 git config --global user.name "Aryan Karan"
 git config --global user.email "aryankaran28022004@gmail.com"
 git config --global color.ui true
