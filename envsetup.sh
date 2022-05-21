@@ -53,7 +53,7 @@ fi
     curl sed coreutils tar time ssh\
     "${PACKAGES}" -y
 
-ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && apt-get install -y tzdata && dpkg-reconfigure --frontend noninteractive tzdata
 
 echo -e "Installing openjdk8 and setting it default + remove any old jdk\n\n"
 apt remove *jdk* -y || true
@@ -114,7 +114,7 @@ if [[ "$(command -v make)" ]]; then
     makeversion="$(make -v | head -1 | awk '{print $3}')"
     if [[ ${makeversion} != "${LATEST_MAKE_VERSION}" ]]; then
         echo "Installing make ${LATEST_MAKE_VERSION} instead of ${makeversion}"
-        install_latest_make "${LATEST_MAKE_VERSION}"
+        install_latest_make "${LATEST_MAKE_VERSION}" >/dev/null
     fi
 fi
 
