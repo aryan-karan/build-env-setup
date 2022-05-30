@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# Copyright (C) 2021 Aryan Karan 'aryankaran' India
+#Author: Aryan Karan
 
 # Script to setup an AOSP Build environment on Ubuntu and Linux Mint
+# along with some other transfer tools
 
 LATEST_MAKE_VERSION="4.3"
 UBUNTU_14_PACKAGES="binutils-static curl figlet libesd0-dev libwxgtk2.8-dev schedtool"
@@ -11,7 +12,7 @@ UBUNTU_18_PACKAGES="curl"
 UBUNTU_20_PACKAGES="python"
 PACKAGES=""
 
-export DEBIAN_FRONTEND=noninteractive
+DEBIAN_FRONTEND=noninteractive
 
 apt update -qq
 apt install curl -y
@@ -39,7 +40,7 @@ elif [[ ${LSB_RELEASE} =~ "Ubuntu 20" ]]; then
 fi
 
     apt install -qq\
-    adb aria2 autoconf automake axel bc bison build-essential \
+    adb aria2 autoconf automake bc bison build-essential \
     ccache clang cmake expat fastboot flex g++ \
     g++-multilib gawk gcc gcc-multilib git gnupg gperf \
     htop imagemagick lib32ncurses5-dev lib32z1-dev libtinfo5 libc6-dev libcap-dev \
@@ -48,12 +49,12 @@ fi
     maven ncftp ncurses-dev patch patchelf pkg-config pngcrush \
     pngquant python2.7 python-all-dev re2c schedtool squashfs-tools subversion \
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
-    libxml-simple-perl tzdata apt-utils \
-    screen tmate pigz axel nano \
-    curl sed coreutils tar time ssh\
+    libxml-simple-perl \
+    apt-utils axel curl pigz nano screen sed ssh coreutils tar time tmate tzdata \
     "${PACKAGES}" -y
 
-ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && apt-get install -y tzdata && dpkg-reconfigure --frontend noninteractive tzdata
+# Change TZ
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
 echo -e "Installing openjdk8 and setting it default + remove any old jdk\n\n"
 apt remove *jdk* -y || true
@@ -85,8 +86,7 @@ if [[ "$(command -v adb)" != "" ]]; then
 fi
 
 function install_latest_make() {
-export a="$PWD"
-cd /tmp || exit 1
+pushd /tmp >/dev/null || exit 1
 axel -a -n 10 https://ftp.gnu.org/gnu/make/make-"${1}".tar.gz
 tar xf /tmp/make-"${1}".tar.gz
 cd /tmp/make-"${1}" || exit 1
@@ -95,7 +95,7 @@ bash ./build.sh
 install ./make /usr/local/bin/make
 cd - || exit 1
 rm -rf /tmp/make-"${1}"{,.tar.gz}
-cd $a
+popd
 }
 
 if [[ "$(command -v make)" ]]; then
