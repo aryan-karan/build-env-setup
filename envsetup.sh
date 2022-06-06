@@ -86,7 +86,7 @@ if [[ "$(command -v adb)" != "" ]]; then
 fi
 
 function install_latest_make() {
-pushd /tmp >/dev/null || exit 1
+pushd /tmp || exit 1
 axel -a -n 10 https://ftp.gnu.org/gnu/make/make-"${1}".tar.gz
 tar xf /tmp/make-"${1}".tar.gz
 cd /tmp/make-"${1}" || exit 1
