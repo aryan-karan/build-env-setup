@@ -22,7 +22,7 @@ curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.co
 chmod a+rx /usr/local/bin/repo
 
 # Install transfer
-cd /usr/bin && bash -c "$(curl -sL https://git.io/file-transfer)"
+cd /usr/bin && bash -c "$(curl -sL https://git.io/file-transfer)" && cd - >/dev/null || exit 123
 
 # Install lsb-core packages
 apt install lsb-core -y -qq
