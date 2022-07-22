@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-#Author: Aryan Karan
+# Author: Aryan Karan
 
 # Script to setup an AOSP Build environment on Ubuntu and Linux Mint
-# along with some other transfer tools
+# along with some other useful tools
 
 LATEST_MAKE_VERSION="4.3"
 UBUNTU_14_PACKAGES="binutils-static curl figlet libesd0-dev libwxgtk2.8-dev schedtool"
@@ -12,20 +12,19 @@ UBUNTU_18_PACKAGES="curl"
 UBUNTU_20_PACKAGES="python"
 PACKAGES=""
 
-DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 
 apt update -qq
-apt install curl -y
+
+# Install lsb-core + curl
+apt install curl lsb-core -y
 
 echo "Installing repo"
-curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
+curl --create-dirs -o /usr/local/bin/repo -L https://storage.googleapis.com/git-repo-downloads/repo
 chmod a+rx /usr/local/bin/repo
 
 # Install transfer
 cd /usr/bin && bash -c "$(curl -sL https://git.io/file-transfer)" && cd - >/dev/null || exit 123
-
-# Install lsb-core packages
-apt install lsb-core -y -qq
 
 LSB_RELEASE="$(lsb_release -d | cut -d ':' -f 2 | sed -e 's/^[[:space:]]*//')"
 
@@ -39,27 +38,30 @@ elif [[ ${LSB_RELEASE} =~ "Ubuntu 20" ]]; then
     PACKAGES="${UBUNTU_20_PACKAGES}"
 fi
 
-    apt install -qq\
-    adb aria2 autoconf automake bc bison build-essential \
+    apt install -qq \
+    aria2 autoconf automake bc bison build-essential \
     ccache clang cmake expat fastboot flex g++ \
     g++-multilib gawk gcc gcc-multilib git gnupg gperf \
     htop imagemagick lib32ncurses5-dev lib32z1-dev libtinfo5 libc6-dev libcap-dev \
     libexpat1-dev libgmp-dev '^liblz4-.*' '^liblzma.*' libmpc-dev libmpfr-dev libncurses5-dev \
     libsdl1.2-dev libssl-dev libtool libxml2 libxml2-utils '^lzma.*' lzop \
     maven ncftp ncurses-dev patch patchelf pkg-config pngcrush \
-    pngquant python2.7 python-all-dev re2c schedtool squashfs-tools subversion \
+    pngquant python2.7 python3 python-all-dev re2c schedtool squashfs-tools subversion \
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
     libxml-simple-perl \
-    apt-utils axel curl pigz nano screen sed ssh coreutils tar time tmate tzdata \
+    apt-utils axel pigz nano screen sed ssh coreutils tar time tmate tzdata \
     "${PACKAGES}" -y
 
 # Change TZ
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
 
-echo -e "Installing openjdk8 and setting it default + remove any old jdk\n\n"
-apt remove *jdk* -y || true
-apt install openjdk-8-jdk -y -qq && update-java-alternatives -s java-1.8.0-openjdk-amd64
-echo -e "Java setup succesfully\n\n"
+# we need python3 from now onwards
+ln -sf python3 /use/bin/python
+
+echo -e "Installing openjdk8, making it default + remove all other jdks\n\n"
+[[ "$(java -version 2>&1)" =~ "1.8.0" ]] || \
+{ apt remove *jdk* -y || true && \
+apt install openjdk-8-jdk -y -qq && update-java-alternatives -s java-1.8.0-openjdk-amd64;}
 
 # git config --global credential.helper "cache --timeout=7200"
 git config --global user.name "Aryan Karan"
